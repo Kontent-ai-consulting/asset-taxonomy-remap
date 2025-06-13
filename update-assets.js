@@ -77,6 +77,18 @@ const pillColors = [
   'bg-pink-100 text-pink-800',
   'bg-indigo-100 text-indigo-800',
   'bg-teal-100 text-teal-800',
+  'bg-orange-100 text-orange-800',
+  'bg-lime-100 text-lime-800',
+  'bg-amber-100 text-amber-800',
+  'bg-emerald-100 text-emerald-800',
+  'bg-cyan-100 text-cyan-800',
+  'bg-violet-100 text-violet-800',
+  'bg-rose-100 text-rose-800',
+  'bg-sky-100 text-sky-800',
+  'bg-fuchsia-100 text-fuchsia-800',
+  'bg-stone-100 text-stone-800',
+  'bg-gray-100 text-gray-800',
+  'bg-zinc-100 text-zinc-800',
 ];
 
 // Get a pill color class based on an index to cycle through colors
@@ -327,6 +339,7 @@ async function main() {
         <th class="border border-gray-300 p-2 text-left">Source Asset</th>
         <th class="border border-gray-300 p-2 text-left">Source Asset Taxonomies</th>
         <th class="border border-gray-300 p-2 text-left">Target Asset</th>
+        <th class="border border-gray-300 p-2 text-left">Target Asset Taxonomies (Existing)</th>
         <th class="border border-gray-300 p-2 text-left">Target Asset Taxonomies (Pending Update)</th>
       </tr>
     </thead>
@@ -340,6 +353,17 @@ async function main() {
             existingTargetTaxonomyNames,
             targetTaxonomyNamesPending,
           }) => {
+            // NEW: extract existing terms from NEW_ELEMENT_ID in target asset
+            const existingNewElement = targetAsset.elements.find(
+              (el) => el.element.id === NEW_ELEMENT_ID
+            ) || { value: [] };
+            const existingNewTaxonomyNames = (existingNewElement.value || [])
+              .map((v) => {
+                const term = targetTerms.find((t) => t.id === v.id);
+                return term ? term.name : null;
+              })
+              .filter(Boolean);
+
             return `<tr class="hover:bg-gray-100">
               <td class="border border-gray-300 p-2 align-middle">${generateAssetCell(
                 sourceAsset,
@@ -353,6 +377,10 @@ async function main() {
               <td class="border border-gray-300 p-2 align-middle">${generateAssetCell(
                 targetAsset,
                 TARGET_ENV_ID,
+                targetTerms
+              )}</td>
+              <td class="border border-gray-300 p-2 align-middle">${generateTaxPillsHtml(
+                existingNewTaxonomyNames,
                 targetTerms
               )}</td>
               <td class="border border-gray-300 p-2 align-middle">${generateTaxPillsHtml(
