@@ -47,6 +47,10 @@ node update-assets.js
 
 ---
 
+## Report Preview
+
+![Asset Taxonomy Remap Report](./assets/Asset-Taxonomy%20Remap-Report.png)
+
 ## Script Behavior
 
 - Fetches assets and taxonomies from source and target environments.
