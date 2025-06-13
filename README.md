@@ -1,8 +1,8 @@
 # Asset Taxonomy Remapper for Kontent.ai
 
-This Node.js script updates asset taxonomy terms by remapping taxonomy terms from a Kontent.ai source environment to a target environment. It dynamically fetches assets and taxonomies from both environments, generates an HTML preview report, and updates the target assets after user confirmation.
+This Node.js script remaps taxonomy terms on assets from a Kontent.ai source environment to a target environment. It dynamically fetches asset and taxonomy data, generates an HTML preview report, and updates the target assets after user confirmation.
 
-**Note:** This script handles the [Data-ops Asset Type limitation](https://github.com/kontent-ai/data-ops/blob/main/src/commands/environment/backupRestore/README.md#known-limitations) by directly updating asset taxonomy elements, bypassing the limitation described there.
+**Note:** This script aims to handle the [Data-ops Asset Type limitation](https://github.com/kontent-ai/data-ops/blob/main/src/commands/environment/backupRestore/README.md#known-limitations) by directly updating asset taxonomy elements via the Management API.
 
 ---
 
@@ -39,7 +39,9 @@ This Node.js script updates asset taxonomy terms by remapping taxonomy terms fro
 
 3. Create a `.env` file in the project root with your environment IDs and Management API keys.
 
-4. Run the script:
+4. Manually add the Taxonomy Group(s) to the Asset Type in the Target Environment.
+
+5. Run the script:
 
 ```bash
 node update-assets.js
