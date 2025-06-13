@@ -6,9 +6,16 @@ import { stdin as input, stdout as output } from 'node:process';
 import dotenv from 'dotenv';
 dotenv.config(); // Load environment variables from .env file
 
+// Report template HTML file path
+const htmlTemplatePath = path.join(
+  process.cwd(),
+  'templates',
+  'report-template.html'
+);
+
 // IDs of the taxonomy elements to remap from (old) and to (new)
-const OLD_ELEMENT_ID = '36045f11-8b5a-4832-bb3c-f744df22ae25';
-const NEW_ELEMENT_ID = '9391e5ae-94d3-45c8-936e-68d8aac0dd6b';
+let OLD_ELEMENT_ID;
+let NEW_ELEMENT_ID;
 
 // Destructure required environment variables for source and target environments
 const { SOURCE_ENV_ID, SOURCE_MAPI_KEY, TARGET_ENV_ID, TARGET_MAPI_KEY } =
@@ -113,6 +120,13 @@ function generateTaxonomyPills(taxonomies, allTerms) {
     .join('');
 }
 
+// Extracts the first available asset element ID from a Kontent.ai asset object.
+// This is used to dynamically determine the taxonomy element ID for asset updates.
+function getElementIdFromAsset(asset) {
+  const element = asset.elements.find((e) => e?.element?.id);
+  return element?.element?.id || null;
+}
+
 // Generate an HTML table cell for an asset showing an image and link to the asset URL
 function generateAssetCell(asset, envId, allTerms) {
   if (!asset) return '';
@@ -164,6 +178,21 @@ async function main() {
     TARGET_ENV_ID,
     TARGET_MAPI_KEY
   );
+
+  // Extract the taxonomy element ID from the first source and target asset.
+  // This avoids hardcoding element IDs and ensures the script adapts to each environment.
+  const sampleSourceAsset = assetsSource[0];
+  const sampleTargetAsset = assetsTarget[0];
+
+  OLD_ELEMENT_ID = getElementIdFromAsset(sampleSourceAsset);
+  NEW_ELEMENT_ID = getElementIdFromAsset(sampleTargetAsset);
+
+  if (!OLD_ELEMENT_ID || !NEW_ELEMENT_ID) {
+    console.error(
+      '❌ Could not extract element IDs from the first asset in each environment.'
+    );
+    process.exit(1);
+  }
 
   // Flatten taxonomy terms for easier lookup
   const sourceTerms = flattenTerms(taxonomySourceRaw);
