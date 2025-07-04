@@ -81,6 +81,6 @@ node update-assets.js
 
 ---
 
-## Know Limitations
+## Known Limitations
 
 - Currently only supports the remapping of one taxonomy group in the Asset Type.
