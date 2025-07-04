@@ -81,6 +81,6 @@ node update-assets.js
 
 ---
 
-## License
+## Know Limitations
 
-This project is provided as-is under the MIT License.
+- Currently only supports the remapping of one taxonomy group in the Asset Type.
