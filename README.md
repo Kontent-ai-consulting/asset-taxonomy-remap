@@ -11,7 +11,7 @@ This Node.js script remaps taxonomy terms on assets from a Kontent.ai source env
 - Fetches assets and taxonomies dynamically via the Kontent.ai Management API.
 - Maps taxonomy terms by codename from source to target environments.
 - Generates an HTML report previewing taxonomy updates with clickable asset links.
-- Prompts user confirmation before applying updates to target assets.
+- Prompts user with a confirmation before applying updates to target assets.
 
 ---
 
@@ -39,7 +39,7 @@ This Node.js script remaps taxonomy terms on assets from a Kontent.ai source env
 
 3. Rename `.env.template` file to `.env` in the project root and add your environment IDs and Management API keys.
 
-4. Manually add the Taxonomy Group(s) to the Asset Type in the Target Environment.
+4. Manually add the Taxonomy Group to the Asset Type in the Target Environment.
 
 5. Run the script:
 
