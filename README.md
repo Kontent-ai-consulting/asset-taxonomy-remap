@@ -4,6 +4,8 @@ This Node.js script remaps taxonomy terms on assets from a Kontent.ai source env
 
 **Note:** This script is intended to be used **in conjunction with** the [Data-ops tool](https://github.com/kontent-ai/data-ops) when backing up and restoring a Kontent.ai environment. It addresses the [Data-ops Asset Type limitation](https://github.com/kontent-ai/data-ops/blob/main/src/commands/environment/backupRestore/README.md#known-limitations) by directly updating asset taxonomy elements using the Management API.
 
+> ⚠️ This is not an officially supported solution. It is a community-driven workaround maintained by the Consulting team on a best-effort basis. Feel free to adapt or contribute as needed.
+
 ---
 
 ## Features
@@ -84,3 +86,25 @@ node update-assets.js
 ## Known Limitations
 
 - Currently only supports the remapping of one taxonomy group in the Asset Type.
+
+---
+
+## Contributing
+
+This tool is maintained by the Consulting team on a best-effort basis and is not an officially supported solution.
+
+We welcome suggestions, improvements, and fixes! To contribute:
+
+1. **Fork** the repository.
+2. **Create a new branch** for your changes.
+3. Make your edits and ensure they are well-documented.
+4. **Test** your changes if applicable.
+5. **Submit a pull request** with a clear description of what you’ve changed and why.
+
+Feel free to open an issue if you have questions or ideas before starting a contribution.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the ./LICENSE file for details.
